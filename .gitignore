@@ -1,0 +1,17 @@
+OBJ/*
+OBJ/LED.hex
+
+OBJ/croutine.crf
+*.o
+*.d
+*.lst
+*.crf
+*.dep
+*.sct
+*.map
+*.lnp
+*.htm
+*.htm
+*.iex
+*.axf
+*.TMP
