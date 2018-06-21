@@ -7,13 +7,13 @@ TIM_HandleTypeDef TIM3_Handler;          //定时器句柄
 void timer_init(uint32_t num_50us)
 {
     TIM3_Handler.Instance	       = TIM3;                      //通用定时器3
-    TIM3_Handler.Init.Prescaler    = 36;                        //分频系数 36Mhz/36 10us
+    TIM3_Handler.Init.Prescaler    = 360-1;                     //分频系数 36Mhz/36 10us
     TIM3_Handler.Init.CounterMode  = TIM_COUNTERMODE_UP;        //向上计数器
-    TIM3_Handler.Init.Period       = (num_50us*50)/10;          //自动装载值
+    TIM3_Handler.Init.Period       = (num_50us*50)/10-1;        //自动装载值
     TIM3_Handler.Init.ClockDivision= TIM_CLOCKDIVISION_DIV1;    //时钟分频因子
     HAL_TIM_Base_Init(&TIM3_Handler);
     
-    HAL_TIM_Base_Start_IT(&TIM3_Handler); //使能定时器2和定时器2更新中断：TIM_IT_UPDATE
+    HAL_TIM_Base_Start_IT(&TIM3_Handler); //使能定时器3和定时器3更新中断：TIM_IT_UPDATE
 }
 
 #define TIME3_IRQ_PRIORITY 1

@@ -1,28 +1,28 @@
 #include "stm32f1xx.h"
 #include "mb.h"
 
-#define	usRegInputStart			(0)
-#define	REG_INPUT_START			(0)
+#define	usRegInputStart			(1)
+#define	REG_INPUT_START			(1)
 #define	REG_INPUT_NREGS			(10)
 
-#define	usRegHoldingStart		(0)
-#define	REG_HOLDING_START		(0)
+#define	usRegHoldingStart		(1)
+#define	REG_HOLDING_START		(1)
 #define	REG_HOLDING_NREGS		(10)
 
-#define	REG_COILS_START			(0)
+#define	REG_COILS_START			(1)
 #define	REG_COILS_SIZE			(10)
 #define	REG_COILS_NREGS			(5)
 
-u16	usRegInputBuf[REG_INPUT_NREGS];
-u16	usRegHoldingBuf[REG_HOLDING_NREGS];
+u16	usRegInputBuf[REG_INPUT_NREGS]     = {0,1,2,3,4,5,6,7,8,9};
+u16	usRegHoldingBuf[REG_HOLDING_NREGS] = {0,1,2,3,4,5,6,7,8,9};;
 u16 ucRegCoilsBuf[20];
 
 eMBErrorCode
 eMBRegInputCB( UCHAR * pucRegBuffer, USHORT usAddress, USHORT usNRegs )
 {
-		eMBErrorCode    eStatus = MB_ENOERR;
-		int             iRegIndex;
-		
+	eMBErrorCode    eStatus = MB_ENOERR;
+	int             iRegIndex;
+	
     if( ( (int16_t)usAddress >= REG_INPUT_START )&& ( usAddress + usNRegs <= REG_INPUT_START + REG_INPUT_NREGS ) ){
         iRegIndex = ( int )( usAddress - usRegInputStart );
         while( usNRegs > 0 ){
@@ -52,9 +52,9 @@ eMBRegHoldingCB( UCHAR * pucRegBuffer, USHORT usAddress, USHORT usNRegs, eMBRegi
         case MB_REG_READ:
             while( usNRegs > 0 )
             {
-								*pucRegBuffer++ = ( unsigned char )( usRegHoldingBuf[iRegIndex] >> 8 );
-								*pucRegBuffer++ = ( unsigned char )( usRegHoldingBuf[iRegIndex] & 0xFF );
-								iRegIndex++;
+				*pucRegBuffer++ = ( unsigned char )( usRegHoldingBuf[iRegIndex] >> 8 );
+				*pucRegBuffer++ = ( unsigned char )( usRegHoldingBuf[iRegIndex] & 0xFF );
+				iRegIndex++;
                 usNRegs--;
             }
             break;
@@ -63,9 +63,9 @@ eMBRegHoldingCB( UCHAR * pucRegBuffer, USHORT usAddress, USHORT usNRegs, eMBRegi
             while( usNRegs > 0 )
             {
 
-								usRegHoldingBuf[iRegIndex] = *pucRegBuffer++ << 8;
-								usRegHoldingBuf[iRegIndex] |= *pucRegBuffer++;
-								iRegIndex++;
+				usRegHoldingBuf[iRegIndex] = *pucRegBuffer++ << 8;
+				usRegHoldingBuf[iRegIndex] |= *pucRegBuffer++;
+				iRegIndex++;
                 usNRegs--;
             }
         }
@@ -80,48 +80,48 @@ eMBRegHoldingCB( UCHAR * pucRegBuffer, USHORT usAddress, USHORT usNRegs, eMBRegi
 eMBErrorCode
 eMBRegCoilsCB( UCHAR * pucRegBuffer, USHORT usAddress, USHORT usNCoils, eMBRegisterMode eMode )
 {
-			eMBErrorCode eStatus = MB_ENOERR;//´íÎó×´Ì¬
-			u16 iNCoils = ( u16 )usNCoils;   //¼Ä´æÆ÷¸öÊý
-			u16 usBitOffset;//¼Ä´æÆ÷Æ«ÒÆÁ¿
-	
-			//¼ì²é¼Ä´æÆ÷ÊÇ·ñÔÚÖ¸¶¨·¶Î§ÄÚ
-			if( ( (u16)usAddress >= REG_COILS_START ) &&( usAddress + usNCoils <= REG_COILS_START + REG_COILS_SIZE ) ){
-				  //¼ÆËã¼Ä´æÆ÷Æ«ÒÆÁ¿
-				  usBitOffset = ( int16_t )( usAddress - REG_COILS_START );
-					
-			    switch ( eMode ){
-			     
-			      case MB_REG_READ:  //¶Á²Ù×÷
-					    
-						  while( iNCoils > 0 ){
-								
-								 //TODO task
-						     *pucRegBuffer++ = xMBUtilGetBits((UCHAR *) ucRegCoilsBuf, usBitOffset,( uint8_t )( iNCoils > 8 ? 8 : iNCoils ) );
-						     iNCoils -= 8;
-						     usBitOffset += 8;
-					    }
-			      
-							break;
+	eMBErrorCode eStatus = MB_ENOERR;//´íÎó×´Ì¬
+	u16 iNCoils = ( u16 )usNCoils;   //¼Ä´æÆ÷¸öÊý
+	u16 usBitOffset;//¼Ä´æÆ÷Æ«ÒÆÁ¿
 
-		        case MB_REG_WRITE: //Ð´²Ù×÷
+	//¼ì²é¼Ä´æÆ÷ÊÇ·ñÔÚÖ¸¶¨·¶Î§ÄÚ
+	if( ( (u16)usAddress >= REG_COILS_START ) &&( usAddress + usNCoils <= REG_COILS_START + REG_COILS_SIZE ) ){
+		  //¼ÆËã¼Ä´æÆ÷Æ«ÒÆÁ¿
+		usBitOffset = ( int16_t )( usAddress - REG_COILS_START );
 			
-						  while( iNCoils > 0 ){
-							
-						     xMBUtilSetBits((UCHAR *) ucRegCoilsBuf, usBitOffset,( uint8_t )( iNCoils > 8 ? 8 : iNCoils ),*pucRegBuffer++ );
-						     iNCoils -= 8;
-						     usBitOffset += 8;
-							
-						     //TODO task
-					    }
+		switch ( eMode ){
+		 
+		  case MB_REG_READ:  //¶Á²Ù×÷
+				
+				  while( iNCoils > 0 ){
 						
-					    break;
-			   }
+						 //TODO task
+					 *pucRegBuffer++ = xMBUtilGetBits((UCHAR *) ucRegCoilsBuf, usBitOffset,( uint8_t )( iNCoils > 8 ? 8 : iNCoils ) );
+					 iNCoils -= 8;
+					 usBitOffset += 8;
+				}
+		  
+					break;
 
-		 }else{
-				eStatus = MB_ENOREG;
-		 }
-			
-		 return eStatus;
+		case MB_REG_WRITE: //Ð´²Ù×÷
+	
+				  while( iNCoils > 0 ){
+					
+					 xMBUtilSetBits((UCHAR *) ucRegCoilsBuf, usBitOffset,( uint8_t )( iNCoils > 8 ? 8 : iNCoils ),*pucRegBuffer++ );
+					 iNCoils -= 8;
+					 usBitOffset += 8;
+					
+					 //TODO task
+				}
+				
+				break;
+	   }
+
+    }else{
+		eStatus = MB_ENOREG;
+    }
+	
+    return eStatus;
 }
 
 //¶Á¿ª¹Ø¼Ä´æÆ÷ 0x02

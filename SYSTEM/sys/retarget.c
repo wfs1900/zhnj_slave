@@ -1,6 +1,5 @@
 #pragma import(__use_no_semihosting)
-#pragma import(__use_no_semihosting_swi)  
-#pragma import(_main_redirection)
+#pragma import(__use_no_semihosting_swi)
 
 #include <stdio.h>
 
