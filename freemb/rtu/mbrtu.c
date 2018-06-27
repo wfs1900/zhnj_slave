@@ -43,6 +43,8 @@
 #include "mbcrc.h"
 #include "mbport.h"
 
+#include "delay.h"
+
 /* ----------------------- Defines ------------------------------------------*/
 #define MB_SER_PDU_SIZE_MIN     4       /*!< Minimum size of a Modbus RTU frame. */
 #define MB_SER_PDU_SIZE_MAX     256     /*!< Maximum size of a Modbus RTU frame. */
@@ -212,6 +214,10 @@ eMBRTUSend( UCHAR ucSlaveAddress, const UCHAR * pucFrame, USHORT usLength )
 
         /* Activate the transmitter. */
         eSndState = STATE_TX_XMIT;
+        
+        /*wfs1900
+         delay_ms(20);*/
+        
         vMBPortSerialEnable( FALSE, TRUE );
     }
     else

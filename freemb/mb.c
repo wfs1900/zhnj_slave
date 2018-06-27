@@ -336,6 +336,8 @@ eMBPoll( void )
     static UCHAR    ucFunctionCode;
     static USHORT   usLength;
     static eMBException eException;
+    
+    static uint16_t count = 0;
 
     int             i;
     eMBErrorCode    eStatus = MB_ENOERR;
@@ -369,6 +371,11 @@ eMBPoll( void )
             break;
 
         case EV_EXECUTE:
+            count++;
+            if(count==150){
+               count = 0;
+            }
+        
             ucFunctionCode = ucMBFrame[MB_PDU_FUNC_OFF];
             eException = MB_EX_ILLEGAL_FUNCTION;
             for( i = 0; i < MB_FUNC_HANDLERS_MAX; i++ )
@@ -399,7 +406,7 @@ eMBPoll( void )
                 if( ( eMBCurrentMode == MB_ASCII ) && MB_ASCII_TIMEOUT_WAIT_BEFORE_SEND_MS )
                 {
                     vMBPortTimersDelay( MB_ASCII_TIMEOUT_WAIT_BEFORE_SEND_MS );
-                }                
+                }
                 eStatus = peMBFrameSendCur( ucMBAddress, ucMBFrame, usLength );
             }
             break;

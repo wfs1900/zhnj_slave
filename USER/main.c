@@ -15,9 +15,11 @@ int main(void)
 	eMBEnable(  );
 	
     while(1){
+      /*处理modbus事务，接收并解析modbus命令*/
       eMBPoll(  );
+        
+      /*处理modbus事物*/
+        
+      /*接收到控制命令发送完毕指令，取出命令，更新缓存*/
     }
 }
-
-
-
