@@ -1,5 +1,6 @@
 #include "stm32f1xx.h"
 #include "mb.h"
+#include "hci.h"
 
 #define SHELVES_MAX_SLOTS_PERLAYER (50)
 
@@ -46,6 +47,8 @@ eMBRegHoldingCB( UCHAR * pucRegBuffer, USHORT usAddress, USHORT usNRegs, eMBRegi
     eMBErrorCode    eStatus = MB_ENOERR;
     int             iRegIndex;
     
+    static uint8_t count = 0;
+    
     if( ( (int16_t)usAddress >= REG_HOLDING_START ) && ( usAddress + usNRegs <= REG_HOLDING_START + REG_HOLDING_NREGS ) )
     {
         iRegIndex = ( int )( usAddress - usRegHoldingStart );
@@ -69,7 +72,17 @@ eMBRegHoldingCB( UCHAR * pucRegBuffer, USHORT usAddress, USHORT usNRegs, eMBRegi
 				usRegHoldingBuf[iRegIndex] |= *pucRegBuffer++;
 				iRegIndex++;
                 usNRegs--;
+            }
+
+            if(*(pucRegBuffer+1) == 3){
+            
+                count++;
+                if(count == 5){
+                   count == 0;
+                }
             }*/
+            
+            hci_do_led(usAddress,*(pucRegBuffer+1));
         }
     }
     else

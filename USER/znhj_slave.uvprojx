@@ -365,7 +365,7 @@
               <MiscControls></MiscControls>
               <Define>USE_HAL_DRIVER,STM32F103xE</Define>
               <Undefine></Undefine>
-              <IncludePath>..\CORE;..\OBJ;..\USER;..\SYSTEM\delay;..\SYSTEM\sys;..\TOOLS;..\TOOLS\CJson;..\freemb\include;..\freemb_port\include;..\HARDWARE\uart2;..\HALLIB\STM32F1xx_HAL_Driver\Inc;..\USER;..\SYSTEM;..\HARDWARE\timer3</IncludePath>
+              <IncludePath>..\CORE;..\OBJ;..\USER;..\SYSTEM\delay;..\SYSTEM\sys;..\TOOLS;..\TOOLS\CJson;..\freemb\include;..\freemb_port\include;..\HARDWARE\uart2;..\HALLIB\STM32F1xx_HAL_Driver\Inc;..\USER;..\SYSTEM;..\HARDWARE\timer3;..\hci\include</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -817,6 +817,16 @@
               <FileName>cJSON.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\TOOLS\CJson\cJSON.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>HCI</GroupName>
+          <Files>
+            <File>
+              <FileName>hci.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\hci\hci.c</FilePath>
             </File>
           </Files>
         </Group>

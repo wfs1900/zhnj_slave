@@ -336,8 +336,6 @@ eMBPoll( void )
     static UCHAR    ucFunctionCode;
     static USHORT   usLength;
     static eMBException eException;
-    
-    static uint16_t count = 0;
 
     int             i;
     eMBErrorCode    eStatus = MB_ENOERR;
@@ -371,10 +369,6 @@ eMBPoll( void )
             break;
 
         case EV_EXECUTE:
-            count++;
-            if(count==150){
-               count = 0;
-            }
         
             ucFunctionCode = ucMBFrame[MB_PDU_FUNC_OFF];
             eException = MB_EX_ILLEGAL_FUNCTION;
