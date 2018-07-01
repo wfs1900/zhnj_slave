@@ -108,7 +108,7 @@ void visHandle2()
 	{
 		timestamp = HAL_GetTick();
 
-		visDots(frameBuffer, sizeof(frameBuffer), 30,20);
+		//visRainbow(frameBuffer2, sizeof(frameBuffer2), 10);
 		visDots(frameBuffer2, sizeof(frameBuffer2), 50, 40);
 /*
 		switch(visSelect)

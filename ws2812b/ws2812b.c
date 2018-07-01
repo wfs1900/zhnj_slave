@@ -51,8 +51,8 @@ static void ws2812b_gpio_init(void)
 	WS2812B_GPIO_CLK_ENABLE();
 	GPIO_InitTypeDef  GPIO_InitStruct;
 	GPIO_InitStruct.Pin       = WS2812B_PINS;
-	GPIO_InitStruct.Mode      = GPIO_MODE_OUTPUT_PP;
-	GPIO_InitStruct.Pull      = GPIO_PULLUP;;
+	GPIO_InitStruct.Mode      = GPIO_MODE_OUTPUT_OD;
+	GPIO_InitStruct.Pull      = GPIO_NOPULL;;
 	GPIO_InitStruct.Speed     = GPIO_SPEED_FREQ_HIGH;
 	HAL_GPIO_Init(WS2812B_PORT, &GPIO_InitStruct);
 
@@ -142,7 +142,7 @@ static void DMA_init(void)
 	HAL_DMA_Init(&dmaUpdate);
 	//HAL_NVIC_SetPriority(DMA1_Channel2_IRQn, 0, 0);
 	//HAL_NVIC_EnableIRQ(DMA1_Channel2_IRQn);
-	HAL_DMA_Start(&dmaUpdate, (uint32_t)WS2812_IO_High, (uint32_t)&WS2812B_PORT->BSRR, BUFFER_SIZE);
+	HAL_DMA_Start(&dmaUpdate, (uint32_t)WS2812_IO_High, (uint32_t)&WS2812B_PORT->BSRR, BUFFER_SIZE);    
 
 
 	// TIM2 CC1 event
