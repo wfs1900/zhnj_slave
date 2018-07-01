@@ -25,10 +25,10 @@
 #define WS2812B_PINS             (GPIO_PIN_10 | GPIO_PIN_11)
 
 // How many LEDs are in the series
-#define WS2812B_NUMBER_OF_LEDS   (60)
+#define WS2812B_NUMBER_OF_LEDS   (2)
 
 // Number of output LED strips. Each has its own buffer.
-#define WS2812_BUFFER_COUNT      (2)
+#define WS2812_BUFFER_COUNT      (1)
 
 // Choose one of the bit-juggling setpixel implementation
 // *******************************************************
@@ -40,11 +40,11 @@
 
 // DEBUG OUTPUT
 // ********************
-#define LED4_PORT GPIOC
-#define LED4_PIN  GPIO_PIN_13
+//#define LED4_PORT GPIOC
+//#define LED4_PIN  GPIO_PIN_13
 
-#define LED5_PORT GPIOB
-#define LED5_PIN  GPIO_PIN_12
+//#define LED5_PORT GPIOB
+//#define LED5_PIN  GPIO_PIN_12
 
 
 // Public functions
@@ -79,7 +79,7 @@ extern WS2812_Struct ws2812b;
 
 // Bit band stuff
 #define RAM_BASE                            0x20000000
-#define RAM_BB_BASE                         0x22000000
+#define RAM_BB_BASE                         0x20004000
 #define Var_ResetBit_BB(VarAddr, BitNumber) (*(volatile uint32_t *) (RAM_BB_BASE | ((VarAddr - RAM_BASE) << 5) | ((BitNumber) << 2)) = 0)
 #define Var_SetBit_BB(VarAddr, BitNumber)   (*(volatile uint32_t *) (RAM_BB_BASE | ((VarAddr - RAM_BASE) << 5) | ((BitNumber) << 2)) = 1)
 #define Var_GetBit_BB(VarAddr, BitNumber)   (*(volatile uint32_t *) (RAM_BB_BASE | ((VarAddr - RAM_BASE) << 5) | ((BitNumber) << 2)))

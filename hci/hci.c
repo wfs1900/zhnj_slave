@@ -21,7 +21,7 @@ void hci_init(void) {
     HAL_GPIO_Init(GPIOA, &GPIO_InitStructure);
 
     /*pin3:wifi-r, pin4:op1-r, pin5:op1-g,  pin8:op2-r, pin9:op2-g, pin12:buzz*/
-    GPIO_InitStructure.Pin   = GPIO_PIN_3 | GPIO_PIN_4 | GPIO_PIN_5 | GPIO_PIN_8 | GPIO_PIN_9 |  GPIO_PIN_12;
+    GPIO_InitStructure.Pin   = GPIO_PIN_3 | GPIO_PIN_4 | GPIO_PIN_5 | GPIO_PIN_8 | GPIO_PIN_9 |  GPIO_PIN_12 | GPIO_PIN_10 | GPIO_PIN_11;
     GPIO_InitStructure.Speed = GPIO_SPEED_HIGH;
     GPIO_InitStructure.Mode  = GPIO_MODE_OUTPUT_PP;
     GPIO_InitStructure.Pull  = GPIO_PULLUP;

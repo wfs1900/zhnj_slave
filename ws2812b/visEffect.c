@@ -19,8 +19,8 @@
 #include <stdlib.h>
 
 // RGB Framebuffers
-uint8_t frameBuffer[3*60];
-uint8_t frameBuffer2[3*20];
+uint8_t frameBuffer[3*5];
+uint8_t frameBuffer2[3*5];
 
 // Helper defines
 #define newColor(r, g, b) (((uint32_t)(r) << 16) | ((uint32_t)(g) <<  8) | (b))
@@ -108,7 +108,7 @@ void visHandle2()
 	{
 		timestamp = HAL_GetTick();
 
-		visRainbow(frameBuffer, sizeof(frameBuffer), 15);
+		visDots(frameBuffer, sizeof(frameBuffer), 30,20);
 		visDots(frameBuffer2, sizeof(frameBuffer2), 50, 40);
 /*
 		switch(visSelect)
@@ -130,7 +130,7 @@ void visHandle2()
 void visInit()
 {
 	// Set output channel/pin, GPIO_PIN_0 = 0, for GPIO_PIN_5 = 5 - this has to correspond to WS2812B_PINS
-	ws2812b.item[0].channel = 13;
+	ws2812b.item[0].channel = 10;
 	// Your RGB framebuffer
 	ws2812b.item[0].frameBufferPointer = frameBuffer;
 	// RAW size of framebuffer
@@ -138,7 +138,7 @@ void visInit()
 
 
 	// If you need more parallel LED strips, increase the WS2812_BUFFER_COUNT value
-	ws2812b.item[1].channel = 12;
+	ws2812b.item[1].channel = 11;
 	ws2812b.item[1].frameBufferPointer = frameBuffer2;
 	ws2812b.item[1].frameBufferSize = sizeof(frameBuffer2);
 

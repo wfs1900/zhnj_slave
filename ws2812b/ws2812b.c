@@ -52,8 +52,8 @@ static void ws2812b_gpio_init(void)
 	GPIO_InitTypeDef  GPIO_InitStruct;
 	GPIO_InitStruct.Pin       = WS2812B_PINS;
 	GPIO_InitStruct.Mode      = GPIO_MODE_OUTPUT_PP;
-	GPIO_InitStruct.Pull      = GPIO_NOPULL;
-	GPIO_InitStruct.Speed     = GPIO_SPEED_FREQ_LOW;
+	GPIO_InitStruct.Pull      = GPIO_PULLUP;;
+	GPIO_InitStruct.Speed     = GPIO_SPEED_FREQ_HIGH;
 	HAL_GPIO_Init(WS2812B_PORT, &GPIO_InitStruct);
 
 	// Enable output pins for debuging to see DMA Full and Half transfer interrupts
@@ -131,12 +131,12 @@ static void DMA_init(void)
 	__HAL_RCC_DMA1_CLK_ENABLE();
 	dmaUpdate.Init.Direction = DMA_MEMORY_TO_PERIPH;
 	dmaUpdate.Init.PeriphInc = DMA_PINC_DISABLE;
-	dmaUpdate.Init.MemInc = DMA_MINC_DISABLE;
+	dmaUpdate.Init.MemInc    = DMA_MINC_DISABLE;
 	dmaUpdate.Init.PeriphDataAlignment = DMA_PDATAALIGN_WORD;
-	dmaUpdate.Init.MemDataAlignment = DMA_MDATAALIGN_WORD;
-	dmaUpdate.Init.Mode = DMA_CIRCULAR;
+	dmaUpdate.Init.MemDataAlignment    = DMA_MDATAALIGN_WORD;
+	dmaUpdate.Init.Mode     = DMA_CIRCULAR;
 	dmaUpdate.Init.Priority = DMA_PRIORITY_VERY_HIGH;
-	dmaUpdate.Instance = DMA1_Channel2;
+	dmaUpdate.Instance      = DMA1_Channel2;
 	//dmaUpdate.XferCpltCallback  = TransferComplete;
 	//dmaUpdate.XferErrorCallback = TransferError;
 	HAL_DMA_Init(&dmaUpdate);
@@ -148,12 +148,12 @@ static void DMA_init(void)
 	// TIM2 CC1 event
 	dmaCC1.Init.Direction = DMA_MEMORY_TO_PERIPH;
 	dmaCC1.Init.PeriphInc = DMA_PINC_DISABLE;
-	dmaCC1.Init.MemInc = DMA_MINC_ENABLE;
+	dmaCC1.Init.MemInc    = DMA_MINC_ENABLE;
 	dmaCC1.Init.PeriphDataAlignment = DMA_PDATAALIGN_WORD;
-	dmaCC1.Init.MemDataAlignment = DMA_MDATAALIGN_HALFWORD;
-	dmaCC1.Init.Mode = DMA_CIRCULAR;
+	dmaCC1.Init.MemDataAlignment    = DMA_MDATAALIGN_HALFWORD;
+	dmaCC1.Init.Mode     = DMA_CIRCULAR;
 	dmaCC1.Init.Priority = DMA_PRIORITY_VERY_HIGH;
-	dmaCC1.Instance = DMA1_Channel5;
+	dmaCC1.Instance      = DMA1_Channel5;
 	//dmaUpdate.XferCpltCallback  = TransferComplete;
 	//dmaUpdate.XferErrorCallback = TransferError;
 	//dmaUpdate.XferHalfCpltCallback = TransferHalf;
@@ -166,13 +166,13 @@ static void DMA_init(void)
 	// TIM2 CC2 event
 	dmaCC2.Init.Direction = DMA_MEMORY_TO_PERIPH;
 	dmaCC2.Init.PeriphInc = DMA_PINC_DISABLE;
-	dmaCC2.Init.MemInc = DMA_MINC_DISABLE;
+	dmaCC2.Init.MemInc    = DMA_MINC_DISABLE;
 	dmaCC2.Init.PeriphDataAlignment = DMA_PDATAALIGN_WORD;
-	dmaCC2.Init.MemDataAlignment = DMA_MDATAALIGN_WORD;
-	dmaCC2.Init.Mode = DMA_CIRCULAR;
+	dmaCC2.Init.MemDataAlignment    = DMA_MDATAALIGN_WORD;
+	dmaCC2.Init.Mode     = DMA_CIRCULAR;
 	dmaCC2.Init.Priority = DMA_PRIORITY_VERY_HIGH;
-	dmaCC2.Instance = DMA1_Channel7;
-	dmaCC2.XferCpltCallback  = DMA_TransferCompleteHandler;
+	dmaCC2.Instance      = DMA1_Channel7;
+	dmaCC2.XferCpltCallback     = DMA_TransferCompleteHandler;
 	dmaCC2.XferHalfCpltCallback = DMA_TransferHalfHandler;
 	//dmaUpdate.XferErrorCallback = TransferError;
 	HAL_DMA_Init(&dmaCC2);

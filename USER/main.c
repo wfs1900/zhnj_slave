@@ -23,11 +23,37 @@ int main(void)
 	
     while(1){
       /*处理modbus事务，接收并解析modbus命令*/
+      hci_do_led(1,0);  
       eMBPoll();
-        
+      
+      /*delay_ms(500);
+      HAL_GPIO_WritePin(GPIOB,GPIO_PIN_10,GPIO_PIN_SET);
+      HAL_GPIO_WritePin(GPIOB,GPIO_PIN_11,GPIO_PIN_SET);         
+      delay_ms(500);
+      HAL_GPIO_WritePin(GPIOB,GPIO_PIN_10,GPIO_PIN_RESET); 
+      HAL_GPIO_WritePin(GPIOB,GPIO_PIN_11,GPIO_PIN_RESET); */
       visHandle();
       /*处理modbus事物*/
+
+        hci_do_led(1,1);
         
       /*接收到控制命令发送完毕指令，取出命令，更新缓存*/
     }
+}
+
+/**
+  * @brief  This function is executed in case of error occurrence.
+  * @param  None
+  * @retval None
+  */
+void Error_Handler(void)
+{
+  /* USER CODE BEGIN Error_Handler */
+  /* User can add his own implementation to report the HAL error return state */
+  while(1) 
+  {
+		hci_do_led(1,0);
+		HAL_Delay (50);
+  }
+  /* USER CODE END Error_Handler */ 
 }

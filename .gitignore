@@ -15,3 +15,4 @@ OBJ/croutine.crf
 *.iex
 *.axf
 *.TMP
+USER/JLinkLog.txt

@@ -365,7 +365,7 @@
               <MiscControls></MiscControls>
               <Define>USE_HAL_DRIVER,STM32F103xE</Define>
               <Undefine></Undefine>
-              <IncludePath>..\CORE;..\OBJ;..\USER;..\SYSTEM\delay;..\SYSTEM\sys;..\TOOLS;..\TOOLS\CJson;..\freemb\include;..\freemb_port\include;..\HARDWARE\uart2;..\HALLIB\STM32F1xx_HAL_Driver\Inc;..\USER;..\SYSTEM;..\HARDWARE\timer3;..\hci\include</IncludePath>
+              <IncludePath>..\CORE;..\OBJ;..\USER;..\SYSTEM\delay;..\SYSTEM\sys;..\TOOLS;..\TOOLS\CJson;..\freemb\include;..\freemb_port\include;..\HARDWARE\uart2;..\HALLIB\STM32F1xx_HAL_Driver\Inc;..\USER;..\SYSTEM;..\HARDWARE\timer3;..\hci\include;..\ws2812b</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -827,6 +827,21 @@
               <FileName>hci.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\hci\hci.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>WS281X</GroupName>
+          <Files>
+            <File>
+              <FileName>visEffect.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\ws2812b\visEffect.c</FilePath>
+            </File>
+            <File>
+              <FileName>ws2812b.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\ws2812b\ws2812b.c</FilePath>
             </File>
           </Files>
         </Group>
