@@ -7,7 +7,7 @@ TIM_HandleTypeDef TIM3_Handler;          //定时器句柄
 void timer_init(uint32_t num_50us)
 {
     TIM3_Handler.Instance	       = TIM3;                      //通用定时器3
-    TIM3_Handler.Init.Prescaler    = 320-1;                     //分频系数 32Mhz/32 10us
+    TIM3_Handler.Init.Prescaler    = 720-1;                     //分频系数 32Mhz/32 10us
     TIM3_Handler.Init.CounterMode  = TIM_COUNTERMODE_UP;        //向上计数器
     TIM3_Handler.Init.Period       = (num_50us*50)/10-1;        //自动装载值
     TIM3_Handler.Init.ClockDivision= TIM_CLOCKDIVISION_DIV1;    //时钟分频因子

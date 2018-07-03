@@ -81,7 +81,7 @@ eMBRegHoldingCB( UCHAR * pucRegBuffer, USHORT usAddress, USHORT usNRegs, eMBRegi
                    count == 0;
                 }
             }*/
-            
+
             hci_do_led(usAddress,*(pucRegBuffer+1));
         }
     }

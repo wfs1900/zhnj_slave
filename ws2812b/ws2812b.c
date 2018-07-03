@@ -51,8 +51,8 @@ static void ws2812b_gpio_init(void)
 	WS2812B_GPIO_CLK_ENABLE();
 	GPIO_InitTypeDef  GPIO_InitStruct;
 	GPIO_InitStruct.Pin       = WS2812B_PINS;
-	GPIO_InitStruct.Mode      = GPIO_MODE_OUTPUT_OD;
-	GPIO_InitStruct.Pull      = GPIO_NOPULL;;
+	GPIO_InitStruct.Mode      = GPIO_MODE_OUTPUT_PP;
+	GPIO_InitStruct.Pull      = GPIO_PULLUP;;
 	GPIO_InitStruct.Speed     = GPIO_SPEED_FREQ_HIGH;
 	HAL_GPIO_Init(WS2812B_PORT, &GPIO_InitStruct);
 
@@ -81,9 +81,9 @@ static void TIM2_init(void)
 
 	// This computation of pulse length should work ok,
 	// at some slower core speeds it needs some tuning.
-	tim_period =  SystemCoreClock / 800000; // 0,125us period (10 times lower the 1,25us period to have fixed math below)
-	uint32_t cc1 = (10 * tim_period) / 36;
-	uint32_t cc2 = (10 * tim_period) / 15;
+	tim_period =  SystemCoreClock / 800000; // 0.125us period (10 times lower the 1.25us period to have fixed math below)
+	uint32_t cc1 = (10 * tim_period) / 36;  // 350ns
+	uint32_t cc2 = (10 * tim_period) / 15;  // 833ns
 
 	Tim2Handle.Instance = TIM2;
 

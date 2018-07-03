@@ -8,12 +8,12 @@ UART_HandleTypeDef USART2_RS485Handler;
 
 void open_485_send()
 {
-	HAL_GPIO_WritePin(GPIOA,GPIO_PIN_4,GPIO_PIN_SET);
+	HAL_GPIO_WritePin(GPIOD,GPIO_PIN_7,GPIO_PIN_SET);
 }
 
 void close_485_send()
 { 
-    HAL_GPIO_WritePin(GPIOA,GPIO_PIN_4,GPIO_PIN_RESET);
+    HAL_GPIO_WritePin(GPIOD,GPIO_PIN_7,GPIO_PIN_RESET);
 }
 
 #define USART2_RS485_IRQ_PRIORITY 0
@@ -22,6 +22,7 @@ void usart_config(uint8_t port, uint32_t baud, uint16_t data_bits, uint16_t pari
 	GPIO_InitTypeDef GPIO_Initure;
 	
 	__HAL_RCC_GPIOA_CLK_ENABLE();
+    __HAL_RCC_GPIOD_CLK_ENABLE();
 	
 	GPIO_Initure.Pin  = GPIO_PIN_2; 		//PA2
 	GPIO_Initure.Mode = GPIO_MODE_AF_PP;	//复用推挽输出
@@ -33,11 +34,11 @@ void usart_config(uint8_t port, uint32_t baud, uint16_t data_bits, uint16_t pari
 	GPIO_Initure.Mode = GPIO_MODE_AF_INPUT;	//复用输入
 	HAL_GPIO_Init(GPIOA,&GPIO_Initure);	   	//初始化PA3
 	
-    GPIO_Initure.Pin  = GPIO_PIN_4; 		//PA4
+    GPIO_Initure.Pin  = GPIO_PIN_7; 		//PA7
     GPIO_Initure.Mode = GPIO_MODE_OUTPUT_PP;//推挽输出
     GPIO_Initure.Pull = GPIO_PULLUP;        //上拉
     GPIO_Initure.Speed= GPIO_SPEED_HIGH;    //高速
-    HAL_GPIO_Init(GPIOA,&GPIO_Initure);
+    HAL_GPIO_Init(GPIOD,&GPIO_Initure);
 		
 	/*初始化usart2*/
     __HAL_RCC_USART2_CLK_ENABLE();
